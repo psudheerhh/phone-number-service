@@ -1,0 +1,46 @@
+<div class="container">
+
+    <br/>
+    <h3>Generate Alphanumeric combinations</h3>
+    <br/>
+
+    <form [formGroup]="phoneNumberForm" #formDir="ngForm">
+
+        <div [hidden]="formDir.submitted">
+
+            <div class="form-group">
+                <label for="phone number">Phone Number</label>
+                <input type='number' id="phoneNumber" class="form-control" formControlName="phoneNumber" required>
+                <div *ngIf="phoneNumber.invalid" class="alert alert-danger">
+                    Accepted formats for the phone number - (1234567) or (123456789).
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Limit">Limit</label>
+                <select id="limitValue" class="form-control" formControlName="limitValue" required>
+                     <option *ngFor="let lim of limits" [ngValue]="lim">{{lim}}</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success" (click)="getCombinations()" [disabled]="phoneNumberForm.invalid">Submit</button>
+
+        </div>
+
+    </form>
+
+    <div *ngIf="formDir.submitted" class="row justify-content-start">
+        <ul class="list-group">
+            <li *ngFor="let combination of combinations">
+                <span class="badge">{{combination}}</span>
+            </li>
+        </ul>
+    </div>
+    <br/>
+
+    <div *ngIf="formDir.submitted" class="row justify-content-start">
+        <h2><span class="badge badge-secondary">Displaying page {{pageNumber}} of {{totalCount}}</span></h2>
+        <a class="page-link" href="#" (click)="getCombinations()"><span>&raquo;</span></a>
+    </div>
+
+</div>
